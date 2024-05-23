@@ -1,0 +1,57 @@
+<% if (Array.isArray(jobs) && jobs.length > 0) { %>
+<br><br>
+  <div class="container">
+      <div class="row">
+          <% jobs.slice(0, 4).forEach((job) => { %>
+
+              <div class="col-md-6">
+                  <div class="card mb-3">
+                      <div class="card-header">
+                          <h5 class="card-title"><%= job.jobTitle %></h5>
+                          <%  if(role == 'recruiter'){ %> 
+                            <!-- Edit and Delete Buttons -->
+                            <div class="btn-group btn-group-sm" style="position: absolute; top: 10px; right: 10px;">
+                                <a href="/edit/<%= job.id %>" class="btn btn-warning">Edit</a>
+                                <a style="margin-left: 1%;" href="#" class="btn btn-danger" onclick="deleteJob('<%= job.id %>')">Delete</a>
+                            </div>
+                        <% } %>
+                      </div>
+                      <div class="card-body">
+                          <p class="card-text"><b><%= job.companyName %></b></p>
+                          <p class="card-text"><%= job.location %></p>
+                          <ul>
+                              <li><%= job.jobDescription %></li>
+                          </ul>
+                          <p class="card-text"><%= job.skillsRequired %></p>
+                          <p class="card-text"><%= job.experience %> years of experience required</p>
+                          <a href="/apply" class="btn btn-primary">Apply</a>
+                          <a href="#" class="btn btn-secondary">View More</a>
+                          <%  if(role == 'recruiter'){ %> 
+
+                          <a href="/applicants">View Applicants</a>
+                        
+                          <% } %>
+                      </div>
+                  </div>
+              </div>
+
+          <% }) %>
+      </div>
+  </div>
+
+  <% if (jobs.length > 4) { %>
+      <div class="text-center">
+          <a href="#" class="btn btn-primary">View More</a>
+      </div>
+  <% } %>
+
+<% } else { %>
+
+  <div class="container">
+      <h1>No Jobs Available</h1>
+      <div class="text-center">
+          <a href="#" class="btn btn-secondary">Back to Job Listings</a>
+      </div>
+  </div>
+
+<% } %>
