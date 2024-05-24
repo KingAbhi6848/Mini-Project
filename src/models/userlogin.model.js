@@ -9,9 +9,9 @@ export default class UserLogin{
         this.password = password;
     }
 
-    static addJobSeeker(userDetails, jobSeekerArray) {
+    static addJobSeeker(userDetails) {
         const newJobSeeker = new UserLogin(Date.now().toString(), userDetails);
-        jobSeekerArray.push(newJobSeeker);
+        jobSeeker.push(newJobSeeker);
         return { success: true, newJobSeeker };
     }
 

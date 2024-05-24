@@ -27,6 +27,24 @@ export default class RecuriterModel{
       return jobFound;
     
     }
+
+static postUpdate(data,recuriterid) {
+    console.log('data', data);
+    const jobIndex = jobList.findIndex(job => job.jobId == data.jobId); // Assuming job has an `id` property
+    if (jobIndex !== -1) { // Check if job exists
+        jobList[jobIndex] = data;
+        jobList[jobIndex].recuriterId = recuriterid; 
+        // Replace the job at found index with the updated data
+        console.log('Job updated successfully');
+    } else {
+        console.log('Job not found');
+    }
+}
+
+static delete(id){
+    const jobIndex = jobList.findIndex(job => job.jobId == id );
+    jobList.splice(jobIndex,1);
+}
 }
 
 const jobList =[{

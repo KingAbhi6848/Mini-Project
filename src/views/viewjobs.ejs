@@ -2,7 +2,7 @@
 <br><br>
   <div class="container">
       <div class="row">
-          <% jobs.slice(0, 4).forEach((job) => { %>
+          <% jobs.forEach((job) => { %>
 
               <div class="col-md-6">
                   <div class="card mb-3">
@@ -12,7 +12,7 @@
                             <!-- Edit and Delete Buttons -->
                             <div class="btn-group btn-group-sm" style="position: absolute; top: 10px; right: 10px;">
                                 <a href="/edit/<%= job.jobId %>" class="btn btn-warning">Edit</a>
-                                <a style="margin-left: 1%;" href="#" class="btn btn-danger" onclick="deleteJob('<%= job.id %>')">Delete</a>
+                                <a style="margin-left: 1%;" href="/delete/<%= job.jobId %>" class="btn btn-danger">Delete</a>
                             </div>
                         <% } %>
                       </div>
@@ -40,9 +40,7 @@
   </div>
 
   <% if (jobs.length > 4) { %>
-      <div class="text-center">
-          <a href="#" class="btn btn-primary">View More</a>
-      </div>
+   
   <% } %>
 
 <% } else { %>

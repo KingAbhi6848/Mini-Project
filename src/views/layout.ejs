@@ -19,12 +19,17 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
+            <% if(role != 'jobseeker' ){ %>
+
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/joblogin">For Job Seekers</a>
             </li>
+            <% } %>
+            <% if(role != 'recruiter'){ %> 
             <li class="nav-item">
               <a class="nav-link" href="/recuriterlogin">For Recruiters</a>
             </li>
+            <% } %>
             <!-- Post More Jobs button in navbar -->
             <% if(role == 'recruiter'){ %> 
               <li class="nav-item">

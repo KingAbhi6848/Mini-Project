@@ -44,6 +44,7 @@ export default class RecruiterController{
    console.log("recuriterPostLogin:- ",message);
 
    if(success){
+      req.session.isUser =null;
       req.session.isRecuriter =  success;
       req.session.recuriterId = recuriterid;
       res.locals.role = 'recruiter';
@@ -69,6 +70,19 @@ export default class RecruiterController{
    console.log(jobFound);
     res.render('recuriterupdatejobposting',{job:jobFound});
 
+ }
+ postupdate(req,res){
+   const recuriterid = req.session.recuriterId;
+    const result = RecuriterModel.postUpdate(req.body,recuriterid);
+    const jobList = RecuriterModel.getJobList();
+    console.log('Post Update Job List: -' , jobList);
+    console.log("recuritedjsakdj:- ",req.session.recuriterId);
+    
+      res.redirect('/viewjobs');
+ }
+ deletePost(req,res){
+   RecuriterModel.delete(req.params.id);
+   res.redirect('/viewjobs');
  }
 
 }

@@ -46,16 +46,19 @@ export default class JobSeekerController{
        }
     }
 
-    postlogin(req,res){
+    postlogin(req, res) {
         const result = UserLogin.jobLoginAuth(req.body);
-        const {success,message} = result;
-req.session.isUser = success;
-
-
-     console.log(message);
-     res.redirect('/viewjobs');
-        
-    }
+        const { success, message } = result;
+      
+        req.session.isRecuriter =  null;
+        req.session.recuriterId = null;      
+          // Set the new session data
+          req.session.isUser = success;
+      
+          console.log(message);
+          res.redirect('/viewjobs');
+        }
+      
 
     postApply(req,res){
         console.log(req.file)
