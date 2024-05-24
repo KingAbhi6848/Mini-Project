@@ -8,10 +8,10 @@
                   <div class="card mb-3">
                       <div class="card-header">
                           <h5 class="card-title"><%= job.jobTitle %></h5>
-                          <%  if(role == 'recruiter'){ %> 
+                          <%  if(role == 'recruiter' && recuriter == job.recuriterId){ %> 
                             <!-- Edit and Delete Buttons -->
                             <div class="btn-group btn-group-sm" style="position: absolute; top: 10px; right: 10px;">
-                                <a href="/edit/<%= job.id %>" class="btn btn-warning">Edit</a>
+                                <a href="/edit/<%= job.jobId %>" class="btn btn-warning">Edit</a>
                                 <a style="margin-left: 1%;" href="#" class="btn btn-danger" onclick="deleteJob('<%= job.id %>')">Delete</a>
                             </div>
                         <% } %>

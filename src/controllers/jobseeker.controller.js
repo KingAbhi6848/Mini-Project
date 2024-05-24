@@ -11,9 +11,12 @@ export default class JobSeekerController{
       const jobs = RecuriterModel.getJobList();
     //   const recuriter = UserLogin.getJobSeeker();
     //   const jobseeker = UserLogin.
+
+    const recuriterId = req.session.recuriterId;
         res.render('viewjobs',{
             role:res.locals.role,
-            jobs:jobs
+            jobs:jobs,
+            recuriter:recuriterId
         });
     }
 

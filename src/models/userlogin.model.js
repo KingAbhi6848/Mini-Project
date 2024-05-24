@@ -1,17 +1,18 @@
 export default class UserLogin{
   
-    constructor({firstName,lastName,email,phone,password}){
-        this.firstName = firstName,
-        this.lastName = lastName,
-        this.email = email,
-        this.phone = phone,
+    constructor(id, { firstName, lastName, email, phone, password }) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
         this.password = password;
     }
 
-    static addJobSeeker(userDetails){
-        const newJobSeeker = new UserLogin(userDetails);
-        jobSeeker.push(newJobSeeker);
-        return {success:true ,newJobSeeker };
+    static addJobSeeker(userDetails, jobSeekerArray) {
+        const newJobSeeker = new UserLogin(Date.now().toString(), userDetails);
+        jobSeekerArray.push(newJobSeeker);
+        return { success: true, newJobSeeker };
     }
 
     static getJobSeeker(){
@@ -30,7 +31,7 @@ export default class UserLogin{
 
 
     static recuriterSignup(details){
-        const newRecuriter = new UserLogin(details);
+        const newRecuriter = new UserLogin(Date.now().toString(), details);
         recuriter.push(newRecuriter);
         return recuriter;
     }
@@ -38,7 +39,7 @@ export default class UserLogin{
     static recuriterLogin(details){
         for(let i =0; i<recuriter.length;i++){
             if(details.email == recuriter[i].email && details.password == recuriter[i].password){
-                return {success:true, message:"Recuriter Logged In Successfully"}
+                return {success:true,recuriterid:recuriter[i].id, message:"Recuriter Logged In Successfully"}
             }
         }
         return {success:false,message:"Recuriter Failed to Login"};
@@ -53,6 +54,7 @@ export default class UserLogin{
 
 
 const jobSeeker = [{
+    id: Date.now().toString(),
     firstName:'abhi',
     lastName:'sharma',
     phone:524752144,
@@ -61,6 +63,7 @@ const jobSeeker = [{
 }];
 const jobSeekerApply=[];
 const recuriter =[{
+    id: Date.now().toString(),
     firstName:'keshav',
     lastName:'Maharaj',
     phone:524755744,

@@ -41,6 +41,7 @@ app.get('/recuriterlogin', recuriterController.login);
 app.get('/jobposting', recuriterController.jobposting );
 app.get('/apply',auth, jobSeekerController.applyjob)
 app.get('/applicants', Recuritauth,recuriterController.applicants);
+app.get('/edit/:id',recuriterController.updateJobPosting)
 
 
 app.post('/jobposting', recuriterController.postJobPosting );

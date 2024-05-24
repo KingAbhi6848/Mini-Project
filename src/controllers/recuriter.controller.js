@@ -18,13 +18,13 @@ export default class RecruiterController{
 
  postJobPosting(req,res){
     // console.log(req.body);
-    const jobPosted = RecuriterModel.addnewjob(req.body);
+    const jobPosted = RecuriterModel.addnewjob(req.body,req.session.recuriterId);
         const {success, newjobPost} = jobPosted;
-
+         
     if(success){
         // console.log(`New Job Posted is:- ${newjobPost}`);
         const jobs = RecuriterModel.getJobList();
-        // console.log("JobsList:-",jobs)
+        console.log("JobsList:-",jobs)
         res.redirect('/viewjobs');
     }else{
         console.log('Something went wrong');
@@ -40,11 +40,12 @@ export default class RecruiterController{
 
  postLogin(req,res){
    const result = UserLogin.recuriterLogin(req.body);
-   const {success,message} = result;
-   console.log(message);
+   const {success,message,recuriterid} = result;
+   console.log("recuriterPostLogin:- ",message);
 
    if(success){
       req.session.isRecuriter =  success;
+      req.session.recuriterId = recuriterid;
       res.locals.role = 'recruiter';
       console.log(res.locals);
 
@@ -59,6 +60,15 @@ export default class RecruiterController{
     res.render('viewapplicants',{
       applicants:allApplicants
     });
+ }
+
+ updateJobPosting(req,res){
+
+   const id = req.params.id;
+   const jobFound = RecuriterModel.update(id);
+   console.log(jobFound);
+    res.render('recuriterupdatejobposting',{job:jobFound});
+
  }
 
 }

@@ -1,6 +1,8 @@
 export default class RecuriterModel{
 
-    constructor({jobTitle, companyName,location,jobDescription,skillsRequired,experience}){
+    constructor(jobId,recuriterId,{jobTitle, companyName,location,jobDescription,skillsRequired,experience}){
+        this.jobId = jobId,
+        this.recuriterId = recuriterId,
         this.jobTitle = jobTitle,
         this.companyName = companyName,
         this.location = location,
@@ -9,8 +11,8 @@ export default class RecuriterModel{
         this.experience = experience;
     }
 
-    static addnewjob(jobdetails){
-      const newjobPost = new RecuriterModel(jobdetails);
+    static addnewjob(jobdetails,recuriterId){
+      const newjobPost = new RecuriterModel(Date.now().toString(),recuriterId,jobdetails);
        jobList.push(newjobPost);
    return {success:true, newjobPost};
     }
@@ -18,9 +20,18 @@ export default class RecuriterModel{
     static getJobList(){
         return jobList;
     }
+    static update(id){
+        console.log('id :-', id)
+      const jobFound =  jobList.find(job=> job.jobId == id);
+      console.log("model: ", jobFound)
+      return jobFound;
+    
+    }
 }
 
 const jobList =[{
+    jobId : Date.now().toString(),
+    recuriterId : 1234,
     jobTitle: 'Software Engineer',
     companyName: 'Tech Solutions Inc.',
     location: 'San Francisco, CA',
