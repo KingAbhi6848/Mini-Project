@@ -9,6 +9,9 @@ import { fileUpload } from './middleware/ileupload.middleware.js';
 import cookieParser from 'cookie-parser';
 import { checkUser } from './middleware/checkuser.middleware.js';
 import { Recuritauth } from './middleware/recuriter.middleware.js';
+import { lastVisit, lastVisit2 } from './middleware/lastvisit.middleware.js';
+import { v4 as uuidv4 } from "uuid"
+
 
 const jobSeekerController = new JobSeekerController();
 const recuriterController = new RecruiterController();
@@ -29,7 +32,8 @@ app.use(session({
     saveUninitialized:false,
     cookie:{secure:false}
 }));
-
+app.use(cookieParser());
+// app.use(lastVisit);
 app.use(checkUser);
 
 app.get('/',jobSeekerController.homepage);
@@ -47,14 +51,14 @@ app.get('/delete/:id',recuriterController.deletePost);
 
 app.post('/jobposting', recuriterController.postJobPosting );
 app.post('/jobsignup', jobSeekerController.postsignup);
-app.post('/joblogin',jobSeekerController.postlogin);
+app.post('/joblogin',lastVisit,jobSeekerController.postlogin);
 app.post('/apply/:id',auth,fileUpload.single('resume'),jobSeekerController.postApply);
 
 app.post('/updatejob', recuriterController.postupdate);
 
 
 app.post('/recuritersignup',recuriterController.postSignup);
-app.post('/recuriterlogin',recuriterController.postLogin);
+app.post('/recuriterlogin',lastVisit2,recuriterController.postLogin);
 
 app.get('/logout', jobSeekerController.logout);
 

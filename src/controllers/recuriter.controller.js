@@ -45,12 +45,39 @@ export default class RecruiterController{
 
    if(success){
       req.session.isUser =null;
+      req.session.jobSeekerId = null;
+      
       req.session.isRecuriter =  success;
       req.session.recuriterId = recuriterid;
+
+      
       res.locals.role = 'recruiter';
       console.log(res.locals);
 
-      res.redirect('/viewjobs');
+      const uniqueId = req.cookies.uniqueId;
+      const lastVisit = req.cookies[`lastVisit_${uniqueId}`];
+      const currentVisit = new Date().toLocaleString();
+  
+      // Set a new cookie with the current visit time
+      res.cookie(`lastVisit_${uniqueId}`, currentVisit, { maxAge: 900000, httpOnly: true });
+  
+      if (lastVisit) {
+        console.log(`Your last visit was on ${lastVisit}`);
+      } else {
+        console.log('This is your first visit!');
+      }
+      const jobs = RecuriterModel.getJobList();
+
+      const recuriterId = req.session.recuriterId;
+      res.render('viewjobs',{
+          role:res.locals.role,
+          jobs:jobs,
+          recuriter:recuriterId,
+          lastVisit:lastVisit
+      });
+
+
+      // res.redirect('/viewjobs');
    }else{
       res.redirect('back');
       }

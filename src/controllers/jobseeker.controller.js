@@ -1,6 +1,8 @@
+// import { lastVist } from "../../middleware/lastvisit.middleware.js";
 import Apply from "../models/applydata.model.js";
 import RecuriterModel from "../models/recuriter.model.js";
 import UserLogin from "../models/userlogin.model.js";
+import cookieParser from "cookie-parser";
 export default class JobSeekerController{
 
     homepage(req,res){
@@ -25,6 +27,7 @@ export default class JobSeekerController{
     }
 
     login(req,res){
+    
         res.render('jobseekerlogin');
     }
 
@@ -56,9 +59,27 @@ export default class JobSeekerController{
           // Set the new session data
           req.session.isUser = success;
           req.session.jobSeekerId = jobSeekerId;
+          const uniqueId = req.cookies.uniqueId;
+          const lastVisit = req.cookies[`lastVisit_${uniqueId}`];
+          const currentVisit = new Date().toLocaleString();
       
-          console.log(message);
-          res.redirect('/viewjobs');
+          // Set a new cookie with the current visit time
+          res.cookie(`lastVisit_${uniqueId}`, currentVisit, { maxAge: 900000, httpOnly: true });
+      
+          if (lastVisit) {
+            console.log(`Your last visit was on ${lastVisit}`);
+          } else {
+            console.log('This is your first visit!');
+          }
+          const jobs = RecuriterModel.getJobList();
+
+          const recuriterId = req.session.recuriterId;
+          res.render('viewjobs',{
+              role:res.locals.role,
+              jobs:jobs,
+              recuriter:recuriterId,
+              lastVisit:lastVisit
+          });
         }
       
 
