@@ -1,7 +1,7 @@
 <section class="mt-5">
     <div class="container">
       <h1>Job Seeker Application Form</h1>
-      <form method="post" action="/apply" enctype="multipart/form-data" >
+      <form method="post" action="/apply/<%= id %>" enctype="multipart/form-data" >
         <div class="mb-3">
           <label for="fullName" class="form-label">Full Name</label>
           <input type="text" class="form-control" id="fullName" name="name" placeholder="Enter Full Name">

@@ -22,7 +22,7 @@ export default class UserLogin{
     static jobLoginAuth(details){
        for(let i=0; i<jobSeeker.length ; i++){
         if(details.email == jobSeeker[i].email && details.password == jobSeeker[i].password){
-            return {success:true , message: 'User Logged in Successfully'};
+            return {success:true , message: 'User Logged in Successfully', jobSeekerId: jobSeeker[i].id};
         }
        
        }
@@ -54,7 +54,7 @@ export default class UserLogin{
 
 
 const jobSeeker = [{
-    id: Date.now().toString(),
+    id: Date.now().toString()+'101',
     firstName:'abhi',
     lastName:'sharma',
     phone:524752144,

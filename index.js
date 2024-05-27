@@ -39,8 +39,8 @@ app.get('/joblogin',jobSeekerController.login);
 app.get('/recuritersignup', recuriterController.signUp);
 app.get('/recuriterlogin', recuriterController.login);
 app.get('/jobposting', recuriterController.jobposting );
-app.get('/apply',auth, jobSeekerController.applyjob);
-app.get('/applicants', Recuritauth,recuriterController.applicants);
+app.get('/apply/:id',auth, jobSeekerController.applyjob);
+app.get('/applicants/:id', Recuritauth,recuriterController.applicants);
 app.get('/edit/:id',recuriterController.updateJobPosting);
 app.get('/delete/:id',recuriterController.deletePost);
 
@@ -48,7 +48,7 @@ app.get('/delete/:id',recuriterController.deletePost);
 app.post('/jobposting', recuriterController.postJobPosting );
 app.post('/jobsignup', jobSeekerController.postsignup);
 app.post('/joblogin',jobSeekerController.postlogin);
-app.post('/apply',auth,fileUpload.single('resume'),jobSeekerController.postApply);
+app.post('/apply/:id',auth,fileUpload.single('resume'),jobSeekerController.postApply);
 
 app.post('/updatejob', recuriterController.postupdate);
 

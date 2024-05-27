@@ -29,7 +29,8 @@ export default class JobSeekerController{
     }
 
     applyjob(req,res){
-        res.render('jobseekerapplyform');
+      const id =  req.params.id;
+        res.render('jobseekerapplyform',{id});
     }
 
     postsignup(req,res){
@@ -48,12 +49,13 @@ export default class JobSeekerController{
 
     postlogin(req, res) {
         const result = UserLogin.jobLoginAuth(req.body);
-        const { success, message } = result;
+        const { success, message,jobSeekerId } = result;
       
         req.session.isRecuriter =  null;
         req.session.recuriterId = null;      
           // Set the new session data
           req.session.isUser = success;
+          req.session.jobSeekerId = jobSeekerId;
       
           console.log(message);
           res.redirect('/viewjobs');
@@ -62,7 +64,8 @@ export default class JobSeekerController{
 
     postApply(req,res){
         console.log(req.file)
-        const success = Apply.data(req.body,req.file.filename);
+      const jobListId =   req.params.id;
+        const success = Apply.data(req.body,req.file.filename,jobListId,req.session.jobSeekerId,Date.now().toString()+"77");
         console.log('Form Submitted Sucessfully');
         console.log(success);
         res.redirect('/viewjobs');

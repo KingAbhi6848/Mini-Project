@@ -57,9 +57,12 @@ export default class RecruiterController{
  }
 
  applicants(req,res){
-    const allApplicants = Apply.getAll();
+   const id = req.params.id;
+   const JobData = RecuriterModel.getById(id);
+   const applicants = Apply.getApplicantsByJobList(JobData);
+   //  const allApplicants = Apply.getAll();
     res.render('viewapplicants',{
-      applicants:allApplicants
+      applicants:applicants
     });
  }
 

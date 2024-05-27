@@ -9,6 +9,7 @@ export default class RecuriterModel{
         this.jobDescription = jobDescription,
         this.skillsRequired = skillsRequired,
         this.experience = experience;
+        this.applicants=[];
     }
 
     static addnewjob(jobdetails,recuriterId){
@@ -45,15 +46,20 @@ static delete(id){
     const jobIndex = jobList.findIndex(job => job.jobId == id );
     jobList.splice(jobIndex,1);
 }
-}
 
-const jobList =[{
-    jobId : Date.now().toString(),
-    recuriterId : 1234,
+static getById(id){
+    const jobData = jobList.find(job => job.jobId === id);
+    return jobData || null;
+}
+}
+const jobList = [{
+    jobId: Date.now().toString() + '23',
+    recuriterId: 1234,
     jobTitle: 'Software Engineer',
     companyName: 'Tech Solutions Inc.',
     location: 'San Francisco, CA',
     jobDescription: 'Develop and maintain web applications.',
     skillsRequired: 'JavaScript, HTML, CSS, React, Node.js',
-    experience: 3
+    experience: 3,
+    applicants: []
 }];
